@@ -10,13 +10,13 @@ namespace FNFBot20
    
     public class KeyBot
     {
-        public LowLevelKeyboardHook kHook { get; set; }
+        public LowLevelKeyboardHook KeyboardHook { get; set; }
 
         public int offset = 25;
         
         public KeyBot()
         {
-            kHook = new LowLevelKeyboardHook();
+            KeyboardHook = new LowLevelKeyboardHook();
             try
             {
                 if (!File.Exists("bot.settings"))
@@ -34,7 +34,7 @@ namespace FNFBot20
 
         public void InitHooks()
         {
-            kHook.OnKeyPressed += (sender, keys) =>
+            KeyboardHook.OnKeyPressed += (sender, keys) =>
             {
                 switch (keys)
                 {
@@ -45,22 +45,22 @@ namespace FNFBot20
                     case Keys.F2:
                         offset++;
                         Form1.WriteToConsole("Offset: " + offset);
-                        Form1.offset.Text = "Offset: " + offset;
+                        Form1.Offset.Text = "Offset: " + offset;
                         break;
                     case Keys.F3:
                         offset--;
                         Form1.WriteToConsole("Offset: " + offset);
-                        Form1.offset.Text = "Offset: " + offset;
+                        Form1.Offset.Text = "Offset: " + offset;
                         break;
                 }
             };
-            kHook.HookKeyboard();
+            KeyboardHook.HookKeyboard();
         }
 
 
         public void StopHooks()
         {
-            kHook.UnHookKeyboard();
+            KeyboardHook.UnHookKeyboard();
         }
         
         [DllImport("user32.dll", SetLastError = true)]
@@ -82,7 +82,8 @@ namespace FNFBot20
      // LowLevelKeyboard Hook created by https://stackoverflow.com/a/46014022
     public class LowLevelKeyboardHook
     {
-        private const int WH_KEYBOARD_LL = 13;
+        
+        const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_SYSKEYDOWN = 0x0104;
         private const int WM_KEYUP = 0x101;
